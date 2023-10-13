@@ -14,7 +14,9 @@ public class PlayerJdbcApplication implements CommandLineRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    PlayerDao dao;
+    //PlayerRepository repo;
+    @Autowired
+    PlayerSpringDataRepository repo;
 
     public static void main(String[] args) {
 
@@ -23,26 +25,19 @@ public class PlayerJdbcApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        logger.info("All Players Data: {}", dao.getAllPlayers());
-        logger.info("Inserting Player 4: {}", dao.insertPlayer(
-                new Player (4, "Thiem", "Austria",
-                        new Date(System.currentTimeMillis()),
-                        17 )));
-        logger.info("All Players Data: {}", dao.getAllPlayers());
-        logger.info("Updating Player with Id 4: {}",  dao.updatePlayer(
-                new Player(4, "Thiem", "Austria",
-                        Date.valueOf("1993-09-03"), 17)));
-        logger.info("Player with id 4: {}", dao.getPlayerById(4));
-        logger.info("Deleting Player with Id 2: {}", dao.deletePlayerById(2));
-        logger.info("All Players Data: {}", dao.getAllPlayers());
-    }
-
-    public PlayerDao getDao() {
-        return dao;
-    }
-
-    @Autowired
-    public void setDao(PlayerDao dao) {
-        this.dao = dao;
+        //logger.info("\n\n>> Inserting Player: {}\n", repo.insertPlayer(new Player("Djokovic", "Serbia", Date.valueOf("1987-05-22"), 81)));
+        //logger.info("\n\n>> Inserting Player: {}\n", repo.insertPlayer(new Player("Monfils", "France", Date.valueOf("1986-09-01"), 10)));
+        //logger.info("\n\n>> Inserting Player: {}\n", repo.insertPlayer(new Player("Thiem", "Austria", new Date(System.currentTimeMillis()), 17)));
+        //update player
+        //logger.info("\n\n>> Updating Player with Id 3: {}\n", repo.updatePlayer(new Player(3, "Thiem", "Austria", Date.valueOf("1993-09-03"), 17)));
+        //get player
+        //logger.info("\n\n>> Player with id 3: {}\n", repo.getPlayerById(3));
+        //delete player
+        //repo.deletePlayerById(2);
+        logger.info("\n\n>>Inserting Player: {}\n", repo.save(new Player("Djokovic", "Serbia", Date.valueOf("1987-05-22"), 81)));
+        logger.info("\n\n>>Inserting Player: {}\n", repo.save(new Player("Monfils", "France", Date.valueOf("1986-09-01"), 10)));
+        logger.info("\n\n>>Inserting Player: {}\n", repo.save(new Player("Thiem", "Austria", new Date(System.currentTimeMillis()), 17)));
+        logger.info("\n\n>>Updating Player with Id 3: {}\n", repo.save(new Player(3, "Thiem", "Austria", Date.valueOf("1993-09-03"), 17)));
+        logger.info("All Players Data: {}", repo.findAll());
     }
 }

@@ -1,8 +1,14 @@
 package com.banks.playerjdbc;
 
+import jakarta.persistence.*;
+
 import java.sql.Date;
 
+@Entity
+@NamedQuery(name = "get_all_players", query = "select p from Player p")
 public class Player {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String nationality;
@@ -21,7 +27,16 @@ public class Player {
         this.titles = titles;
     }
 
-    public int getId() {
+    //constructor without Id attribute
+    public Player(String name, String nationality, Date birthDate, int titles) {
+        super();
+        this.name = name;
+        this.nationality = nationality;
+        this.birthDate = birthDate;
+        this.titles = titles;
+    }
+
+        public int getId() {
         return id;
     }
 
